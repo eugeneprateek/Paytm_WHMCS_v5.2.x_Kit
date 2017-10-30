@@ -20,7 +20,6 @@ Provide the values for the following in the *Configuration Settings* of the Admi
 
 Edit gateways/callback/paytm.php with a text editor such as notepad/notepad++(recommend) and locate following two lines  
 `$filename = $protocol . $host . '/whmcs/viewinvoice.php?id=' . $txnid . '&paymentsuccess=true';  
-
 $location = $protocol . $host . '/whmcs/viewinvoice.php?id=' . $txnid . '&paymentfailed=true';`  
 
 #### Explanation ### 

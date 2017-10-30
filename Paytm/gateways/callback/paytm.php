@@ -78,8 +78,8 @@ if(isset($response['ORDERID']) && isset($response['STATUS']) && isset($response[
 	if (isset($_SERVER["HTTP_HOST"]) && ! empty($_SERVER["HTTP_HOST"])) {
   		$host=$_SERVER["HTTP_HOST"];
 	}
-	
-	$filename = $protocol . $host . '/payments/viewinvoice.php?id=' . $txnid . '&paymentsuccess=true';
+	//You might need to change your whmcs folder or path accordingly. i.e.. respective to your whmcs installation path. Common /whmcs/ folder have been used
+	$filename = $protocol . $host . '/whmcs/viewinvoice.php?id=' . $txnid . '&paymentsuccess=true';
     header("Location: $filename");
 }
 else{
@@ -98,7 +98,8 @@ else{
 	
 	//$location = $protocol . $host;
 	$txnid  = $response['ORDERID'];	
-    $location = $protocol . $host . '/payments/viewinvoice.php?id=' . $txnid . '&paymentfailed=true';
+	//You might need to change your whmcs folder or path accordingly. i.e.. respective to your whmcs installation path. Common /whmcs/ folder have been used
+    $location = $protocol . $host . '/whmcs/viewinvoice.php?id=' . $txnid . '&paymentfailed=true';
 	header("Location: $location");
 }
 ?>

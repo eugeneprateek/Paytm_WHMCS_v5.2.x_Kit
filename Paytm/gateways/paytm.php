@@ -18,7 +18,7 @@ function paytm_link($params) {
 
 	$merchant_id = $params['merchant_id'];
 	$secret_key=$params['merchant_key'];
-	$order_id = $params['invoiceid'];
+	$order_id = $params['invoiceid'].chr(rand(65,90)).chr(rand(65,90)).chr(rand(65,90));
 	$website= $params['website'];
 	$industry_type= $params['industry_type'];
 	$channel_id="WEB";	
@@ -54,6 +54,7 @@ function paytm_link($params) {
 	    <input type="hidden" name="CUST_ID" value="'. $email . '"/>
 	    <input type="hidden" name="txnDate" value="'. date("Y-m-d H:i:s") . '"/>
 	    <input type="hidden" name="CHECKSUMHASH" value="'. $checksum . '"/>
+	    
 			<input type="submit" value="Pay with Paytm" />
 	</form>';
 	return $code;

@@ -25,10 +25,10 @@ $location = $protocol . $host . '/whmcs/viewinvoice.php?id=' . $txnid . '&paymen
 #### Explanation ### 
 If your whmcs is installed directly on the root domain eg. abc.com you need to remove /whmcs from both the lines.  
 Example :   
-`$filename = $protocol . $host . '/viewinvoice.php?id=' . $txnid . '&paymentsuccess=true';  
-$location = $protocol . $host . '/viewinvoice.php?id=' . $txnid . '&paymentfailed=true';`  
+`$filename = $protocol . $host . '/viewinvoice.php?id=' . $txnid . '&paymentsuccess=true';`  
+`$location = $protocol . $host . '/viewinvoice.php?id=' . $txnid . '&paymentfailed=true';`  
   
   
 If your whmcs is installed on a sub folder such as abc.com/billing you need to replace whmcs with your folder name.  
-`$filename = $protocol . $host . '/billing/viewinvoice.php?id=' . $txnid . '&paymentsuccess=true';  
-$location = $protocol . $host . '/billing/viewinvoice.php?id=' . $txnid . '&paymentfailed=true';`  
+`$filename = $protocol . $host . '/billing/viewinvoice.php?id=' . $txnid . '&paymentsuccess=true';`  
+`$location = $protocol . $host . '/billing/viewinvoice.php?id=' . $txnid . '&paymentfailed=true';`  

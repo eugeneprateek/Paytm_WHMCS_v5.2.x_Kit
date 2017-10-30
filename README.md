@@ -22,7 +22,7 @@ Edit **gateways/callback/paytm.php** with a text editor such as notepad/notepad+
 `$filename = $protocol . $host . '/whmcs/viewinvoice.php?id=' . $txnid . '&paymentsuccess=true';`  
 `$location = $protocol . $host . '/whmcs/viewinvoice.php?id=' . $txnid . '&paymentfailed=true';`  
   
-  
+    
 #### Explanation ### 
 If your whmcs is installed directly on the root domain eg. abc.com you need to remove /whmcs from both the lines.  
 Example :   

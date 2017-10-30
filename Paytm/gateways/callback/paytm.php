@@ -1,6 +1,7 @@
 <?php	
 
-include("../../../dbconnect.php");
+include("../../../init.php");
+//include("../../../dbconnect.php");
 include("../../../includes/functions.php");
 include("../../../includes/gatewayfunctions.php");
 include("../../../includes/invoicefunctions.php");
@@ -12,9 +13,13 @@ $GATEWAY = getGatewayVariables($gatewaymodule);
 $response = array();
 $response = $_POST;
 
-if(isset($response['ORDERID']) && isset($response['STATUS']) && isset($response['RESPCODE']) && $response['RESPCODE'] != 325){
+$fee = "0";
 
-	$txnid  = $response['ORDERID'];	
+if(isset($response['ORDERID']) && isset($response['STATUS']) && isset($response['RESPCODE']) && $response['RESPCODE'] == 01){ 
+
+	$txnid  = substr($response['ORDERID'],0,strlen($response['ORDERID'])-3);
+
+	
 	$txnid  = checkCbInvoiceID($txnid,'paytm');	
 	
 	$status =$response['STATUS'];
@@ -29,6 +34,7 @@ if(isset($response['ORDERID']) && isset($response['STATUS']) && isset($response[
 	
 	$checksum_status = verifychecksum_e($response, html_entity_decode($GATEWAY['merchant_key']), $checksum_recv);
 	
+
 	// Create an array having all required parameters for status query.
 	$requestParamList = array("MID" => $GATEWAY['merchant_id'] , "ORDERID" => $response['ORDERID']);
 	
@@ -49,7 +55,7 @@ if(isset($response['ORDERID']) && isset($response['STATUS']) && isset($response[
 		if($responseParamList['STATUS']=='TXN_SUCCESS' && $responseParamList['TXNAMOUNT']==$response['TXNAMOUNT'])
 		{
 			$gatewayresult = "success";
-			addInvoicePayment($txnid, $paytm_trans_id, $amount, $gatewaymodule); 
+			addInvoicePayment($txnid, $paytm_trans_id, $amount, $fee, $gatewaymodule); 
 			logTransaction($GATEWAY["name"], $response, $response['RESPMSG']);
 		}
 		else{
@@ -73,10 +79,11 @@ if(isset($response['ORDERID']) && isset($response['STATUS']) && isset($response[
   		$host=$_SERVER["HTTP_HOST"];
 	}
 	
-	$filename = $protocol . $host . '/viewinvoice.php?id=' . $txnid;
+	$filename = $protocol . $host . '/payments/viewinvoice.php?id=' . $txnid . '&paymentsuccess=true';
     header("Location: $filename");
 }
 else{
+    logTransaction($GATEWAY["name"], $response, $response['RESPMSG']);
 	$protocol='http://';
 	
 	$host='';
@@ -89,7 +96,9 @@ else{
   		$host=$_SERVER["HTTP_HOST"];
 	}
 	
-	$location = $protocol . $host;
+	//$location = $protocol . $host;
+	$txnid  = $response['ORDERID'];	
+    $location = $protocol . $host . '/payments/viewinvoice.php?id=' . $txnid . '&paymentfailed=true';
 	header("Location: $location");
 }
 ?>

@@ -97,7 +97,7 @@ else{
 	}
 	
 	//$location = $protocol . $host;
-	$txnid  = $response['ORDERID'];	
+	$txnid  = substr($response['ORDERID'],0,strlen($response['ORDERID'])-3);
 	//You might need to change your whmcs folder or path accordingly. i.e.. respective to your whmcs installation path. Common /whmcs/ folder have been used
     $location = $protocol . $host . '/whmcs/viewinvoice.php?id=' . $txnid . '&paymentfailed=true';
 	header("Location: $location");
